@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,8 +10,18 @@ public class Swipe : MonoBehaviour
 
     private Vector2 startPosition;
     private Vector2 endPosition;
-    private void Update()
+    
+    
+    public Animator myAnim;
+
+    public void Start()
     {
+
+    }
+
+    public void Update()
+    {
+
         if (Input.touchCount == 1)
         {
             var touch = Input.touches[0];
@@ -35,8 +46,12 @@ public class Swipe : MonoBehaviour
         if (Vector2.Distance(start, end) > swipeDistanceThreshold)
         {
             // Le mouvement est suffisamment ample
-            SceneManager.LoadScene("01_SceneJeu");
+            myAnim.Play("Transition");
         }
     }
 
+    public void LoadGameScene()
+    {
+        SceneManager.LoadScene("01_SceneJeu");
+    }
 }
