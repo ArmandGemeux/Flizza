@@ -17,11 +17,13 @@ public class GameManager : MonoBehaviour
 
     public int clickCount = 0;
     public int numberOfGreenPallet;
-    public int palletFlippedAtStart = 0;
 
     [HideInInspector]
     public float currentGameTimer;
     private float gameTimerAtStart = 0.0f;
+    public int palletFlippedAtStart = 0;
+
+    [SerializeField] private float delayUntilRestart = 0.2f;
 
     #region Singleton
     public static GameManager s_Singleton;
@@ -38,19 +40,21 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-
+    
     void Start()
     {
         currentGameTimer = gameTimerAtStart;
-        Invoke("RandomizePalletPosAtStart", 1.25f);
+        RandomizePalletPosAtStart();
     }
 
     void Update()
     {
         if (gameHasStarted && !gameIsFinished && !gameIsPaused)
+        {
             currentGameTimer += Time.deltaTime;
+        }
     }
-
+    
     public void CheckIfThePlayerHasWon()
     {
         numberOfGreenPallet = 0;
@@ -69,7 +73,7 @@ public class GameManager : MonoBehaviour
 
             UIManager.s_Singleton.FadeInEndOfGameResults();
 
-            MasterAudio.PausePlaylist();
+            MasterAudio.MutePlaylist();
             MasterAudio.PlaySoundAndForget("VictorySound");
         }
     }
@@ -78,12 +82,13 @@ public class GameManager : MonoBehaviour
     void RandomizePalletPosAtStart()
     {
         Debug.Log("Random");
-
+        
         for (int i = 0; i < palletControllers.Count - 1; i++)
         {
             palletControllers[i].clickOnPallet = Random.Range(0, palletControllers.Count + 1);
             if (palletControllers[i].clickOnPallet % 2 == 1)
             {
+                palletFlippedAtStart++;
                 Debug.Log("Can Flip " + palletControllers[i]);
                 palletControllers[i].FlipPallets();
             }
@@ -112,7 +117,6 @@ public class GameManager : MonoBehaviour
     public void ResetTheGame()
     {
         ReEnableColliderOnRestart();
-        MasterAudio.UnpausePlaylist();
         SceneManager.LoadScene("01_SceneJeu");
     }
     #endregion
