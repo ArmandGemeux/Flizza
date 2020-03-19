@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     [Header("Images")]
     public Image muteSoundImage;
 
-    bool isMusicMuted = false;
+    public bool isMusicMuted;
 
     #region Singleton
     public static UIManager s_Singleton;
@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitializeMusicState();
         timerText.text = GameManager.s_Singleton.currentGameTimer.ToString();
     }
 
@@ -52,6 +53,16 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         TimerUpdate();
+    }
+
+
+    void InitializeMusicState()
+    {
+        if (!PlaylistControllerManager.instance.isMusicMuted)
+            UnmuteMusic();
+        else if (PlaylistControllerManager.instance.isMusicMuted)
+            MuteMusic();
+
     }
 
     public void ClickCounterUpdate(int clickedTime)
@@ -69,6 +80,17 @@ public class UIManager : MonoBehaviour
     #region Buttons
     public void OnClickRestartButton()
     {
+        //If we don't want to restart when the game is paused
+        /*
+        if (!GameManager.s_Singleton.gameIsPaused)
+            StartCoroutine(RestartCoroutine());
+        */
+
+        if (!isMusicMuted)
+            PlaylistControllerManager.instance.isMusicMuted = false;
+        else if (isMusicMuted)
+            PlaylistControllerManager.instance.isMusicMuted = true;
+
         StartCoroutine(RestartCoroutine());
     }
 
@@ -84,36 +106,59 @@ public class UIManager : MonoBehaviour
 
     public void OnMuteMusicButtonClick()
     {
-        PlayButtonSoundOnClick();
+        if (!GameManager.s_Singleton.gameIsFinished)
+        {
+            PlayButtonSoundOnClick();
 
-        if (!isMusicMuted)
-        {
-            muteSoundImage.sprite = musicOff;
-            MasterAudio.MuteEverything();
-            isMusicMuted = true;
-        }
-        else if (isMusicMuted)
-        {
-            muteSoundImage.sprite = musicOn;
-            MasterAudio.UnmuteEverything();
-            isMusicMuted = false;
+            if (!isMusicMuted)
+            {
+                PlaylistControllerManager.instance.isMusicMuted = true;
+                MuteMusic();
+            }
+            else if (isMusicMuted)
+            {
+                PlaylistControllerManager.instance.isMusicMuted = false;
+                UnmuteMusic();
+            }
         }
     }
 
+    #region Music States
+    void MuteMusic()
+    {
+        muteSoundImage.sprite = musicOff;
+        MasterAudio.MuteEverything();
+        isMusicMuted = true;
+    }
+
+    void UnmuteMusic()
+    {
+        muteSoundImage.sprite = musicOn;
+        MasterAudio.UnmuteEverything();
+        isMusicMuted = false;
+    }
+    #endregion
+
     public void OnPauseButtonClick()
     {
-        PlayButtonSoundOnClick();
+        if (!GameManager.s_Singleton.gameIsFinished)
+        {
+            PlayButtonSoundOnClick();
 
-        if (!GameManager.s_Singleton.gameIsPaused)
-            PauseGame();
-        else
-            ResumeGame();
+            if (!GameManager.s_Singleton.gameIsPaused)
+                PauseGame();
+            else
+                ResumeGame();
+        }
     }
 
     public void OnResumeButtonClick()
     {
-        PlayButtonSoundOnClick();
-        ResumeGame();
+        if (!GameManager.s_Singleton.gameIsFinished)
+        {
+            PlayButtonSoundOnClick();
+            ResumeGame();
+        }
     }
 
     public void OnQuitButtonClick()
@@ -136,11 +181,6 @@ public class UIManager : MonoBehaviour
         menuPause.blocksRaycasts = true;
 
         GameManager.s_Singleton.gameIsPaused = true;
-        
-        /*
-        MasterAudio.MutePlaylist();
-        isMusicMuted = true;
-        */
     }
 
     void ResumeGame()
@@ -149,14 +189,9 @@ public class UIManager : MonoBehaviour
         menuPause.blocksRaycasts = false;
 
         GameManager.s_Singleton.gameIsPaused = false;
-        
-        /*
-        MasterAudio.UnmutePlaylist();
-        isMusicMuted = false;
-        */
     }
     #endregion
-    
+
     #region CanvasFading
     public IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float lerpTime = 0.5f)
     {
@@ -183,7 +218,7 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(FadeCanvasGroup(endOfGameResults, endOfGameResults.alpha, 1));
         clickCountTextAtTheEnd.text = "En  " + GameManager.s_Singleton.clickCount + " clics.";
-        timerTextAtTheEnd.text = "Temps" + " : " + timerText.text +  ".";
+        timerTextAtTheEnd.text = "Temps" + " : " + timerText.text + ".";
     }
 
     public void FadeOutEndOfGameResults()

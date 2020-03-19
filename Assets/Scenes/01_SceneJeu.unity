@@ -1556,9 +1556,8 @@ MonoBehaviour:
   gameIsFinished: 0
   clickCount: 0
   numberOfGreenPallet: 0
-  currentGameTimer: 0
   palletFlippedAtStart: 0
-  delayUntilRestart: 1.25
+  currentGameTimer: 0
 --- !u!1 &602515941
 GameObject:
   m_ObjectHideFlags: 0
@@ -3316,6 +3315,7 @@ GameObject:
   - component: {fileID: 1159970993}
   - component: {fileID: 1159970992}
   - component: {fileID: 1159970991}
+  - component: {fileID: 1159970995}
   m_Layer: 0
   m_Name: PlaylistController
   m_TagString: Untagged
@@ -3567,6 +3567,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1159970995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159970990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fdbd077b4c102449c3aeaa35d3c4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMusicMuted: 0
 --- !u!1 &1377586495
 GameObject:
   m_ObjectHideFlags: 0
@@ -4407,6 +4420,7 @@ MonoBehaviour:
   musicOn: {fileID: 21300000, guid: 7052b49e182ab8b4abc3f112f28c7ff2, type: 3}
   musicOff: {fileID: 21300000, guid: 42a77ba218ab0c342b67169e308867fb, type: 3}
   muteSoundImage: {fileID: 1852121476}
+  isMusicMuted: 0
 --- !u!1 &1591895082
 GameObject:
   m_ObjectHideFlags: 0
