@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public float currentGameTimer;
     private float gameTimerAtStart = 0.0f;
+    public int palletFlippedAtStart = 0;
 
     [SerializeField] private float delayUntilRestart = 0.2f;
 
@@ -84,12 +85,19 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < palletControllers.Count - 1; i++)
         {
-            palletControllers[i].clickOnPallet = Random.Range(1, 9);
+            palletControllers[i].clickOnPallet = Random.Range(0, palletControllers.Count + 1);
             if (palletControllers[i].clickOnPallet % 2 == 1)
             {
+                palletFlippedAtStart++;
                 Debug.Log("Can Flip " + palletControllers[i]);
                 palletControllers[i].FlipPallets();
             }
+        }
+
+        if (palletFlippedAtStart == 0)
+        {
+            Debug.Log("Noppeuh");
+            palletControllers[4].FlipPallets();
         }
 
         gameHasStarted = true;
