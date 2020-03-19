@@ -171,12 +171,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5411765, g: 0.5411765, b: 0.5411765, a: 1}
+  m_Color: {r: 1, g: 0.77873516, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3aa1fff98f115494b968acb344ca9ccf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48d1d6c1778d98c4fa850eaeb3fe52da, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc91e5e8521fb0c4ba22b96cbee70daa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9aadfae9a931dc4dbf00c73c9677a8b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c73d4058cee6e90439378af9b1ef0897, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd8a7016a3e297140a355e6a9cdece89, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4f058dd5bc2e4c4d9a73ff07e3ce856, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d8c7c4c91c9e6f48b7a4f4661e5aca9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 92b126408ee9c564db10a387eff2f80e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf68d3b2cc3bf594abbf055a67537494, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Content: {fileID: 1737642509}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 0
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -824,7 +824,7 @@ MonoBehaviour:
     m_Left: 50
     m_Right: 50
     m_Top: 400
-    m_Bottom: -1425
+    m_Bottom: -1525
   m_ChildAlignment: 4
   m_Spacing: 100
   m_ChildForceExpandWidth: 1
@@ -888,7 +888,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e8be555a0bb7e494c9c593e94d89ca2d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 180e6cbeb9663b247b27b3a3f46fa836, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 957b3530deabad940ab57507ce26d718, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 19f6375d3085d8448b5461c4a4c1a9de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
