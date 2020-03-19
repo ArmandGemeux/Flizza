@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentGameTimer = gameTimerAtStart;
-        RandomizePalletPosAtStart();
+        Invoke("RandomizePalletPosAtStart", 0.25f);
     }
 
     void Update()
@@ -73,8 +73,10 @@ public class GameManager : MonoBehaviour
 
             UIManager.s_Singleton.FadeInEndOfGameResults();
 
-            MasterAudio.MutePlaylist();
+            MasterAudio.PausePlaylist();
             MasterAudio.PlaySoundAndForget("VictorySound");
+            //MasterAudio.MutePlaylist();
+            //MasterAudio.PlaySoundAndForget("VictorySound");
         }
     }
 
@@ -117,6 +119,7 @@ public class GameManager : MonoBehaviour
     public void ResetTheGame()
     {
         ReEnableColliderOnRestart();
+        MasterAudio.UnpausePlaylist();
         SceneManager.LoadScene("01_SceneJeu");
     }
     #endregion
