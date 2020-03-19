@@ -3100,7 +3100,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 1.25
+  m_padding: 4.67
   m_canvasRenderer: {fileID: 989282209}
   m_TextComponent: {fileID: 730955854}
   m_materialReferenceIndex: 1
@@ -3733,7 +3733,7 @@ GameObject:
   - component: {fileID: 1484038470}
   - component: {fileID: 1484038469}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Resume_Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3791,10 +3791,10 @@ MonoBehaviour:
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.9150943, g: 0, b: 0, a: 1}
+    topRight: {r: 1, g: 0.0990566, b: 0.0990566, a: 1}
+    bottomLeft: {r: 1, g: 0.6171875, b: 0, a: 1}
+    bottomRight: {r: 1, g: 0.796458, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -3805,12 +3805,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 124
-  m_fontSizeBase: 124
+  m_fontSize: 163
+  m_fontSizeBase: 163
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 125
   m_fontStyle: 33
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -3819,7 +3819,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_firstOverflowCharacterIndex: -1
@@ -4100,7 +4100,7 @@ GameObject:
   - component: {fileID: 1539639661}
   - component: {fileID: 1539639660}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Quit_Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4158,10 +4158,10 @@ MonoBehaviour:
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.9150943, g: 0, b: 0, a: 1}
+    topRight: {r: 1, g: 0.0990566, b: 0.0990566, a: 1}
+    bottomLeft: {r: 1, g: 0.6171875, b: 0, a: 1}
+    bottomRight: {r: 1, g: 0.796458, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -4172,12 +4172,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 124
-  m_fontSizeBase: 124
+  m_fontSize: 163
+  m_fontSizeBase: 163
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 125
   m_fontStyle: 33
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -4186,7 +4186,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_firstOverflowCharacterIndex: -1
