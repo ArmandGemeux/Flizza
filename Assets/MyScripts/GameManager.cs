@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         if (winCount == numberOfWinsToGetAPizza)
         {
             UIManager.s_Singleton.getAPizzaButton.interactable = true;
-            winCounterText.text = "Pizza offerte obtenue!";
+            winCounterText.text = "Free Pizza!";
         }
     }
 
