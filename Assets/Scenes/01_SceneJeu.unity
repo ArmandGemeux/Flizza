@@ -349,12 +349,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 150
+  m_fontSize: 145
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 150
+  m_fontSizeMax: 145
   m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -4895,12 +4895,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 154
+  m_fontSize: 145
   m_fontSizeBase: 134
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 154
+  m_fontSizeMax: 145
   m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
