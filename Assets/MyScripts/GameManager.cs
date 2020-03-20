@@ -1,6 +1,7 @@
 ﻿using DarkTonic.MasterAudio;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     //GameStates
     [Header("Debug Game States")]
     public bool gameHasStarted = false;
-    public bool gameIsPaused = false;
+    public bool gameIsPaused = true;
     public bool gameIsFinished = false;
 
     public int clickCount = 0;
@@ -25,7 +26,8 @@ public class GameManager : MonoBehaviour
     private float gameTimerAtStart = 0.0f;
     public int palletFlippedAtStart = 0;
 
-    [SerializeField] private float delayUntilRestart = 0.2f;
+    public int loadCount;
+    public TextMeshProUGUI winCounterText;
 
     #region Singleton
     public static GameManager s_Singleton;
@@ -40,14 +42,9 @@ public class GameManager : MonoBehaviour
         {
             s_Singleton = this;
 
-            if (PlayerPrefs.HasKey("WinCount"))
-            {
-                winCount = PlayerPrefs.GetInt("WinCount");
-            }
-            else
-            {
-                Save();
-            }
+            winCount = PlayerPrefs.GetInt("WinCount");
+            loadCount = PlayerPrefs.GetInt("LoadCount");
+            winCounterText.text = PlayerPrefs.GetString("WinCounterText");
         }
 
         Debug.Log(winCount);
@@ -57,14 +54,22 @@ public class GameManager : MonoBehaviour
     public void Save()
     {
         PlayerPrefs.SetInt("WinCount", winCount);
+        PlayerPrefs.SetInt("LoadCount", loadCount);
+        PlayerPrefs.SetString("WinCounterText", winCounterText.text);
     }
     #endregion
 
     void Start()
     {
-        InitializeWinCount();
+        UpdateLoadCountValue();
+
+        Invoke("InitializeWinCount", 0.5f);
+
         currentGameTimer = gameTimerAtStart;
-        Invoke("RandomizePalletPosAtStart", 0.25f);
+
+        if(loadCount > 1)
+            Invoke("RandomizePalletPosAtStart", 0.25f);
+
         EnableGetAPizzaButton();
     }
 
@@ -76,9 +81,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Invoked Method
     void InitializeWinCount()
     {
-        UIManager.s_Singleton.winCounterText.text = winCount.ToString() + " / " + numberOfWinsToGetAPizza.ToString();
+        if (winCount != numberOfWinsToGetAPizza && loadCount <= 1)
+            winCounterText.text = winCount.ToString() + " / " + numberOfWinsToGetAPizza.ToString();
     }
 
     public void UpdateWinCount()
@@ -86,17 +93,23 @@ public class GameManager : MonoBehaviour
         if (winCount != numberOfWinsToGetAPizza)
         {
             winCount++;
-            UIManager.s_Singleton.winCounterText.text = winCount.ToString("0") + " / " + numberOfWinsToGetAPizza.ToString();
+            winCounterText.text = winCount.ToString("0") + " / " + numberOfWinsToGetAPizza.ToString();
             Save();
         }
+    }
+
+    void UpdateLoadCountValue()
+    {
+        loadCount++;
+        Save();
     }
 
     void EnableGetAPizzaButton()
     {
         if (winCount == numberOfWinsToGetAPizza)
         {
-            Debug.Log("nombre de victoires = nombre total pour avoir un bon kdo ! ");
             UIManager.s_Singleton.getAPizzaButton.interactable = true;
+            winCounterText.text = "Pizza offerte obtenue!";
         }
     }
 
@@ -121,16 +134,26 @@ public class GameManager : MonoBehaviour
             UpdateWinCount();
             UIManager.s_Singleton.FadeInEndOfGameResults();
 
+            if (winCount == numberOfWinsToGetAPizza)
+                winCounterText.text = "Pizza offerte obtenue!";
+
             MasterAudio.PausePlaylist();
             MasterAudio.PlaySoundAndForget("VictorySound");
-            //MasterAudio.MutePlaylist();
-            //MasterAudio.PlaySoundAndForget("VictorySound");
+
+            Save();
         }
     }
 
-    #region Randomize Pallet Position At Start
-    void RandomizePalletPosAtStart()
+    private void OnApplicationQuit()
     {
+        PlayerPrefs.DeleteKey("LoadCount");
+        Debug.Log("Quit");
+    }
+
+    #region Randomize Pallet Position At Start
+    public void RandomizePalletPosAtStart()
+    {
+        gameIsPaused = false;
         Debug.Log("Random");
 
         for (int i = 0; i < palletControllers.Count - 1; i++)
