@@ -23,4 +23,25 @@ public class UIManager_Commande : MonoBehaviour
     {
         Debug.Log(gameObject.name);
     }
+
+    public IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float lerpTime = 0.5f)
+    {
+        float _timerStartedLerping = Time.time;
+        float timeSinceStarted = Time.time - _timerStartedLerping;
+        float percentageComplete = timeSinceStarted / lerpTime;
+
+        while (true)
+        {
+            timeSinceStarted = Time.time - _timerStartedLerping;
+            percentageComplete = timeSinceStarted / lerpTime;
+
+            float currentValue = Mathf.Lerp(start, end, percentageComplete);
+
+            cg.alpha = currentValue;
+
+            if (percentageComplete >= 1) break;
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }
