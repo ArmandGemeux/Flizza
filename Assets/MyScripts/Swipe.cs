@@ -46,7 +46,7 @@ public class Swipe : MonoBehaviour
         if (Vector2.Distance(start, end) > swipeDistanceThreshold)
         {
             // Le mouvement est suffisamment ample
-            myAnim.Play("Transition");
+            myAnim.SetTrigger("Transition");
         }
     }
 

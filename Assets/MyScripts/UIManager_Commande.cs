@@ -51,6 +51,11 @@ public class UIManager_Commande : MonoBehaviour
         orderRecapText.text = "   " + myPizzaName + " , " + " prix : " + myPizzaPrice + " € ";
     }
 
+    public void LoadGameScene()
+    {
+        SceneManager.LoadScene("01_SceneJeu");
+    }
+
     #region Fade Windows or Popup
     public IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float lerpTime = 0.5f)
     {
@@ -85,5 +90,6 @@ public class UIManager_Commande : MonoBehaviour
         customersInfoWindow.blocksRaycasts = false;
         Debug.Log("Click Exit button");
     }
+
     #endregion
 }

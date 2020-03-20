@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public int loadCount;
     public TextMeshProUGUI winCountText;
 
+    public Animator deliveryManAnimator;
+
     #region Singleton
     public static GameManager s_Singleton;
 
@@ -70,6 +72,9 @@ public class GameManager : MonoBehaviour
             Invoke("RandomizePalletPosAtStart", 0.25f);
 
         EnableGetAPizzaButton();
+
+        if (hasOrdered)
+            deliveryManAnimator.enabled = true;
     }
 
     void Update()

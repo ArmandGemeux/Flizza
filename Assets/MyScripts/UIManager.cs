@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CanvasGroup menuPausePopup;
     [SerializeField] private CanvasGroup orderOrPlayPopup;
     [SerializeField] private CanvasGroup freePizzaCodePopup;
+    [SerializeField] private CanvasGroup deliveryPizzaPopup;
+
 
     [Header("Win Count Parameters")]
     public Button getAPizzaButton;
@@ -289,6 +291,18 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(FadeCanvasGroup(freePizzaCodePopup, freePizzaCodePopup.alpha, 0));
         freePizzaCodePopup.blocksRaycasts = false;
+    }
+
+    public void FadeInDeliveryPizzaPopup()
+    {
+        StartCoroutine(FadeCanvasGroup(deliveryPizzaPopup, deliveryPizzaPopup.alpha, 1, 1.5f));
+        deliveryPizzaPopup.blocksRaycasts = true;
+    }
+
+    public void FadeOutDeliveryPizzaPopup()
+    {
+        StartCoroutine(FadeCanvasGroup(deliveryPizzaPopup, deliveryPizzaPopup.alpha, 0));
+        deliveryPizzaPopup.blocksRaycasts = false;
     }
     #endregion
 }
