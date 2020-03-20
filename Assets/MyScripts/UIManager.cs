@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using DarkTonic.MasterAudio;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,17 +14,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timerTextAtTheEnd;
     
-
     [Header("CanvasGroup")]
-    [SerializeField] private CanvasGroup endOfGameResults;
-    [SerializeField] private CanvasGroup menuPause;
+    [SerializeField] private CanvasGroup endOfGameResultsPopup;
+    [SerializeField] private CanvasGroup menuPausePopup;
+    [SerializeField] private CanvasGroup orderOrPlayPopup;
 
     [Header("Win Count Parameters")]
-    public TextMeshProUGUI winCounterText;
     public Button getAPizzaButton;
     
-    
-
     [Header("Sprites")]
     public Sprite musicOn;
     public Sprite musicOff;
@@ -54,6 +52,12 @@ public class UIManager : MonoBehaviour
     {
         InitializeMusicState();
         timerText.text = GameManager.s_Singleton.currentGameTimer.ToString();
+
+        if (GameManager.s_Singleton.loadCount <= 1)
+            FadeInOrderOrPlayPopup();
+        else
+            orderOrPlayPopup.blocksRaycasts = false;
+        
     }
 
     // Update is called once per frame
@@ -116,6 +120,21 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         GameManager.s_Singleton.ResetTheGame();
+    }
+
+    public void OnClickOrderButton()
+    {
+        Debug.Log("Order");
+        FadeOutOrderOrPlayPopup();
+        SceneManager.LoadScene("02_SceneCommande");
+    }
+
+    public void OnClickPlayButton()
+    {
+        Debug.Log("Play");
+        FadeOutOrderOrPlayPopup();
+        GameManager.s_Singleton.gameIsPaused = false;
+        GameManager.s_Singleton.RandomizePalletPosAtStart();
     }
 
     public void OnClickGetAPizzaButton()
@@ -196,16 +215,16 @@ public class UIManager : MonoBehaviour
     #region Pause or Resume Game
     void PauseGame()
     {
-        StartCoroutine(FadeCanvasGroup(menuPause, menuPause.alpha, 1));
-        menuPause.blocksRaycasts = true;
+        StartCoroutine(FadeCanvasGroup(menuPausePopup, menuPausePopup.alpha, 1));
+        menuPausePopup.blocksRaycasts = true;
 
         GameManager.s_Singleton.gameIsPaused = true;
     }
 
     void ResumeGame()
     {
-        StartCoroutine(FadeCanvasGroup(menuPause, menuPause.alpha, 0));
-        menuPause.blocksRaycasts = false;
+        StartCoroutine(FadeCanvasGroup(menuPausePopup, menuPausePopup.alpha, 0));
+        menuPausePopup.blocksRaycasts = false;
 
         GameManager.s_Singleton.gameIsPaused = false;
     }
@@ -235,14 +254,27 @@ public class UIManager : MonoBehaviour
 
     public void FadeInEndOfGameResults()
     {
-        StartCoroutine(FadeCanvasGroup(endOfGameResults, endOfGameResults.alpha, 1));
+        StartCoroutine(FadeCanvasGroup(endOfGameResultsPopup, endOfGameResultsPopup.alpha, 1, 1f));
         clickCountTextAtTheEnd.text = "En  " + GameManager.s_Singleton.clickCount + " clics.";
         timerTextAtTheEnd.text = "Temps" + " : " + timerText.text + ".";
     }
 
     public void FadeOutEndOfGameResults()
     {
-        StartCoroutine(FadeCanvasGroup(endOfGameResults, endOfGameResults.alpha, 0));
+        StartCoroutine(FadeCanvasGroup(endOfGameResultsPopup, endOfGameResultsPopup.alpha, 0, 1f));
+    }
+
+    public void FadeInOrderOrPlayPopup()
+    {
+        StartCoroutine(FadeCanvasGroup(orderOrPlayPopup, orderOrPlayPopup.alpha, 1, 1.5f));
+        orderOrPlayPopup.blocksRaycasts = true;
+        GameManager.s_Singleton.Save();
+    }
+
+    public void FadeOutOrderOrPlayPopup()
+    {
+        StartCoroutine(FadeCanvasGroup(orderOrPlayPopup, orderOrPlayPopup.alpha, 0));
+        orderOrPlayPopup.blocksRaycasts = false;
     }
     #endregion
 }

@@ -21,7 +21,7 @@ public class PalletController : MonoBehaviour
     
     void OnMouseUpAsButton()
     {
-        if (canFlip)
+        if (canFlip && GameManager.s_Singleton.gameHasStarted)
         {
             GameManager.s_Singleton.clickCount++;
             clickOnPallet++;
