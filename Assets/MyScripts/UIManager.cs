@@ -12,10 +12,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI clickCountTextAtTheEnd;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timerTextAtTheEnd;
+    
 
     [Header("CanvasGroup")]
     [SerializeField] private CanvasGroup endOfGameResults;
     [SerializeField] private CanvasGroup menuPause;
+
+    [Header("Win Count Parameters")]
+    public TextMeshProUGUI winCounterText;
+    public Button getAPizzaButton;
+    
+    
 
     [Header("Sprites")]
     public Sprite musicOn;
@@ -53,6 +60,11 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         TimerUpdate();
+
+        //if(Input.GetKeyDown(KeyCode.W))
+        //{
+        //    UpdateWinCount();
+        //}
     }
 
 
@@ -76,10 +88,12 @@ public class UIManager : MonoBehaviour
         string sec = Mathf.Floor(GameManager.s_Singleton.currentGameTimer % 60).ToString("00");
         timerText.text = min + " : " + sec;
     }
+    
 
     #region Buttons
     public void OnClickRestartButton()
     {
+        // A decommenter si on a beosin que le joueur ne puisse pas restart le jeu, quand celui-ci est en pause
         //If we don't want to restart when the game is paused
         /*
         if (!GameManager.s_Singleton.gameIsPaused)
@@ -102,6 +116,11 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         GameManager.s_Singleton.ResetTheGame();
+    }
+
+    public void OnClickGetAPizzaButton()
+    {
+        Debug.Log("Got a Pizza!!!!!!!!!!!!!!!!!!!");
     }
 
     public void OnMuteMusicButtonClick()

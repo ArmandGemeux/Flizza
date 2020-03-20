@@ -1668,6 +1668,8 @@ MonoBehaviour:
   gameIsFinished: 0
   clickCount: 0
   numberOfGreenPallet: 0
+  winCount: 0
+  numberOfWinsToGetAPizza: 5
   currentGameTimer: 0
   palletFlippedAtStart: 0
   delayUntilRestart: 0.2
@@ -2128,7 +2130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "F\xE9licitations !"
+  m_text: Victoire !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b006038d192dfe04cadf58f354c5e9f8, type: 2}
   m_sharedMaterial: {fileID: 7458675492625124906, guid: b006038d192dfe04cadf58f354c5e9f8,
@@ -2157,12 +2159,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 128
+  m_fontSize: 120
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 128
+  m_fontSizeMax: 120
   m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -2171,7 +2173,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_firstOverflowCharacterIndex: -1
@@ -2198,14 +2200,14 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 730955854}
-    characterCount: 15
+    characterCount: 10
     spriteCount: 0
     spaceCount: 1
     wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 2
+    materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -2419,7 +2421,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: / 35
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b006038d192dfe04cadf58f354c5e9f8, type: 2}
   m_sharedMaterial: {fileID: 7458675492625124906, guid: b006038d192dfe04cadf58f354c5e9f8,
@@ -2448,7 +2450,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 92
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2489,13 +2491,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 853420600}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 1
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -2651,10 +2653,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 75
     m_Right: 75
-    m_Top: 75
-    m_Bottom: 75
+    m_Top: 350
+    m_Bottom: 350
   m_ChildAlignment: 4
-  m_Spacing: -625
+  m_Spacing: 50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -4265,7 +4267,7 @@ GameObject:
   - component: {fileID: 1502566862}
   - component: {fileID: 1502566861}
   m_Layer: 5
-  m_Name: DeliverymanImage
+  m_Name: DeliveryManImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4789,6 +4791,8 @@ MonoBehaviour:
   timerTextAtTheEnd: {fileID: 253496997}
   endOfGameResults: {fileID: 1512988723}
   menuPause: {fileID: 1377586497}
+  winCounterText: {fileID: 853420600}
+  getAPizzaButton: {fileID: 1720333644}
   musicOn: {fileID: 21300000, guid: 7052b49e182ab8b4abc3f112f28c7ff2, type: 3}
   musicOff: {fileID: 21300000, guid: 42a77ba218ab0c342b67169e308867fb, type: 3}
   muteSoundImage: {fileID: 1852121476}
@@ -5099,7 +5103,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -5119,11 +5123,22 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1720333645}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1579461189}
+        m_MethodName: OnClickGetAPizzaButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1720333645
 MonoBehaviour:
   m_ObjectHideFlags: 0
