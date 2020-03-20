@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public static bool hasOrdered = false;
 
     public int loadCount;
-    public TextMeshProUGUI winCounterText;
+    public TextMeshProUGUI winCountText;
 
     #region Singleton
     public static GameManager s_Singleton;
@@ -45,18 +45,16 @@ public class GameManager : MonoBehaviour
 
             winCount = PlayerPrefs.GetInt("WinCount");
             loadCount = PlayerPrefs.GetInt("LoadCount");
-            winCounterText.text = PlayerPrefs.GetString("WinCounterText");
+            winCountText.text = PlayerPrefs.GetString("WinCountText");
         }
-
-        Debug.Log(winCount);
 
     }
 
     public void Save()
     {
         PlayerPrefs.SetInt("WinCount", winCount);
+        PlayerPrefs.SetString("WinCountText", winCountText.text);
         PlayerPrefs.SetInt("LoadCount", loadCount);
-        PlayerPrefs.SetString("WinCounterText", winCounterText.text);
     }
     #endregion
 
@@ -64,11 +62,11 @@ public class GameManager : MonoBehaviour
     {
         UpdateLoadCountValue();
 
-        InitializeWinCount();
+        SetWinCountTextValue();
 
         currentGameTimer = gameTimerAtStart;
 
-        if(loadCount > 1)
+        if(loadCount > 1 || hasOrdered)
             Invoke("RandomizePalletPosAtStart", 0.25f);
 
         EnableGetAPizzaButton();
@@ -82,20 +80,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Invoked Method
-    void InitializeWinCount()
-    {
-        if (winCount != numberOfWinsToGetAPizza && loadCount <= 1)
-            winCounterText.text = winCount.ToString() + " / " + numberOfWinsToGetAPizza.ToString();
-    }
-
     public void UpdateWinCount()
     {
         if (winCount != numberOfWinsToGetAPizza)
         {
             winCount++;
-            winCounterText.text = winCount.ToString("0") + " / " + numberOfWinsToGetAPizza.ToString();
-            Save();
+            SetWinCountTextValue();
         }
     }
 
@@ -110,7 +100,7 @@ public class GameManager : MonoBehaviour
         if (winCount == numberOfWinsToGetAPizza)
         {
             UIManager.s_Singleton.getAPizzaButton.interactable = true;
-            winCounterText.text = "Pizza Gratuite !";
+            SetWinCountTextValue();
         }
     }
 
@@ -135,9 +125,7 @@ public class GameManager : MonoBehaviour
             UpdateWinCount();
             UIManager.s_Singleton.FadeInEndOfGameResults();
             EnableGetAPizzaButton();
-
-            if (winCount == numberOfWinsToGetAPizza)
-                winCounterText.text = "Pizza Gratuite !";
+            SetWinCountTextValue();
 
             MasterAudio.PausePlaylist();
             MasterAudio.PlaySoundAndForget("VictorySound");
@@ -153,11 +141,30 @@ public class GameManager : MonoBehaviour
         Debug.Log("Quit");
     }
 
+    void SetWinCountTextValue()
+    {
+        if (winCount == numberOfWinsToGetAPizza)
+        {
+            winCountText.fontSize = 66;
+            winCountText.text = "Pizza Gratuite !";
+            
+            Debug.Log("Put FontSize to 66");
+        }
+        
+        if (winCount != numberOfWinsToGetAPizza)
+        {
+            winCountText.fontSize = 95;
+            winCountText.text = winCount.ToString("0") + " / " + numberOfWinsToGetAPizza.ToString();
+            
+            Debug.Log("Put FontSize to 95");
+        }
+    }
+
     #region Randomize Pallet Position At Start
     public void RandomizePalletPosAtStart()
     {
         gameIsPaused = false;
-        Debug.Log("Random");
+        //Debug.Log("Random");
 
         for (int i = 0; i < palletControllers.Count - 1; i++)
         {
@@ -165,7 +172,7 @@ public class GameManager : MonoBehaviour
             if (palletControllers[i].clickOnPallet % 2 == 1)
             {
                 palletFlippedAtStart++;
-                Debug.Log("Can Flip " + palletControllers[i]);
+                //Debug.Log("Can Flip " + palletControllers[i]);
                 palletControllers[i].FlipPallets();
             }
         }
@@ -192,6 +199,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetTheGame()
     {
+        SetWinCountTextValue();
         ReEnableColliderOnRestart();
         MasterAudio.UnpausePlaylist();
         SceneManager.LoadScene("01_SceneJeu");

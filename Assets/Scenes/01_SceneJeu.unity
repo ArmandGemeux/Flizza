@@ -1592,7 +1592,7 @@ MonoBehaviour:
   currentGameTimer: 0
   palletFlippedAtStart: 0
   loadCount: 0
-  winCounterText: {fileID: 853420600}
+  winCountText: {fileID: 853420600}
 --- !u!1 &602515941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,7 +2341,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Pizza Gratuite !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b006038d192dfe04cadf58f354c5e9f8, type: 2}
   m_sharedMaterial: {fileID: 7458675492625124906, guid: b006038d192dfe04cadf58f354c5e9f8,
@@ -2370,12 +2370,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 66
+  m_fontSizeBase: 66
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
-  m_fontSizeMax: 65
+  m_fontSizeMax: 66
   m_fontStyle: 0
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -2411,13 +2411,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 853420600}
-    characterCount: 0
+    characterCount: 16
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 2
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

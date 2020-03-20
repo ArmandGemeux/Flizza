@@ -132,7 +132,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickPlayButton()
     {
-        Debug.Log("Play");
+        //Debug.Log("Play");
         FadeOutOrderOrPlayPopup();
         GameManager.s_Singleton.gameIsPaused = false;
         GameManager.s_Singleton.RandomizePalletPosAtStart();

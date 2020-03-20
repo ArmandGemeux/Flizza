@@ -40,7 +40,7 @@ public class UIManager_Commande : MonoBehaviour
     {
         GameManager.hasOrdered = true;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForEndOfFrame();
 
         SceneManager.LoadScene("01_SceneJeu");
     }
