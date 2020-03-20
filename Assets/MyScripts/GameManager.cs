@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public int clickCount = 0;
     public int numberOfGreenPallet;
+    [SerializeField] private int winCount;
+    [SerializeField] private int numberOfWinsToGetAPizza;
 
     [HideInInspector]
     public float currentGameTimer;
@@ -37,14 +39,33 @@ public class GameManager : MonoBehaviour
         else
         {
             s_Singleton = this;
+
+            if (PlayerPrefs.HasKey("WinCount"))
+            {
+                winCount = PlayerPrefs.GetInt("WinCount");
+            }
+            else
+            {
+                Save();
+            }
         }
+
+        Debug.Log(winCount);
+
+    }
+
+    public void Save()
+    {
+        PlayerPrefs.SetInt("WinCount", winCount);
     }
     #endregion
-    
+
     void Start()
     {
+        InitializeWinCount();
         currentGameTimer = gameTimerAtStart;
         Invoke("RandomizePalletPosAtStart", 0.25f);
+        EnableGetAPizzaButton();
     }
 
     void Update()
@@ -54,11 +75,36 @@ public class GameManager : MonoBehaviour
             currentGameTimer += Time.deltaTime;
         }
     }
-    
+
+    void InitializeWinCount()
+    {
+        UIManager.s_Singleton.winCounterText.text = winCount.ToString() + " / " + numberOfWinsToGetAPizza.ToString();
+    }
+
+    public void UpdateWinCount()
+    {
+        if (winCount != numberOfWinsToGetAPizza)
+        {
+            winCount++;
+            UIManager.s_Singleton.winCounterText.text = winCount.ToString("0") + " / " + numberOfWinsToGetAPizza.ToString();
+            Save();
+        }
+    }
+
+    void EnableGetAPizzaButton()
+    {
+        if (winCount == numberOfWinsToGetAPizza)
+        {
+            Debug.Log("nombre de victoires = nombre total pour avoir un bon kdo ! ");
+            UIManager.s_Singleton.getAPizzaButton.interactable = true;
+        }
+    }
+
     public void CheckIfThePlayerHasWon()
     {
         numberOfGreenPallet = 0;
 
+        //Check si tous les pallets sont verts
         foreach (PalletController pc in palletControllers)
         {
             if (pc.isGreen)
@@ -67,10 +113,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //S'ils sont tous verts alors le joueur a gagné
         if (numberOfGreenPallet == palletControllers.Count)
         {
             gameIsFinished = true;
 
+            UpdateWinCount();
             UIManager.s_Singleton.FadeInEndOfGameResults();
 
             MasterAudio.PausePlaylist();
@@ -84,7 +132,7 @@ public class GameManager : MonoBehaviour
     void RandomizePalletPosAtStart()
     {
         Debug.Log("Random");
-        
+
         for (int i = 0; i < palletControllers.Count - 1; i++)
         {
             palletControllers[i].clickOnPallet = Random.Range(0, palletControllers.Count + 1);
