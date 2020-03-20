@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CanvasGroup endOfGameResultsPopup;
     [SerializeField] private CanvasGroup menuPausePopup;
     [SerializeField] private CanvasGroup orderOrPlayPopup;
+    [SerializeField] private CanvasGroup freePizzaCodePopup;
 
     [Header("Win Count Parameters")]
     public Button getAPizzaButton;
@@ -53,7 +54,7 @@ public class UIManager : MonoBehaviour
         InitializeMusicState();
         timerText.text = GameManager.s_Singleton.currentGameTimer.ToString();
 
-        if (GameManager.s_Singleton.loadCount <= 1)
+        if (GameManager.s_Singleton.loadCount <= 1 && !GameManager.hasOrdered)
             FadeInOrderOrPlayPopup();
         else
             orderOrPlayPopup.blocksRaycasts = false;
@@ -140,6 +141,7 @@ public class UIManager : MonoBehaviour
     public void OnClickGetAPizzaButton()
     {
         Debug.Log("Got a Pizza!!!!!!!!!!!!!!!!!!!");
+        FadeInFreePizzaCodePopup();
     }
 
     public void OnMuteMusicButtonClick()
@@ -275,6 +277,18 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(FadeCanvasGroup(orderOrPlayPopup, orderOrPlayPopup.alpha, 0));
         orderOrPlayPopup.blocksRaycasts = false;
+    }
+
+    public void FadeInFreePizzaCodePopup()
+    {
+        StartCoroutine(FadeCanvasGroup(freePizzaCodePopup, freePizzaCodePopup.alpha, 1, 1.5f));
+        freePizzaCodePopup.blocksRaycasts = true;
+    }
+
+    public void FadeOutFreePizzaCodePopup()
+    {
+        StartCoroutine(FadeCanvasGroup(freePizzaCodePopup, freePizzaCodePopup.alpha, 0));
+        freePizzaCodePopup.blocksRaycasts = false;
     }
     #endregion
 }

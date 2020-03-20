@@ -1,29 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager_Commande : MonoBehaviour
 {
-    //public List<Button> pizzaButtons = new List<Button>();
+    [SerializeField] private CanvasGroup customersInfoWindow;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private TextMeshProUGUI orderRecapText;
+    private string pizzaName;
+    private float pizzaPrice;
+
+
+    public void GetPizzaName(string _pizzaName)
     {
-        
+        pizzaName = _pizzaName;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetPizzaName(float _pizzaPrice)
     {
-        
+        pizzaPrice = _pizzaPrice;
     }
 
-    public void ClickOnPizzaButton()
+    public void OnClickPizzaButton()
     {
         Debug.Log(gameObject.name);
+        FadeInCustomersInfoWindow();
+        UpdatePizzaNameInOrderRecap(pizzaName, pizzaPrice);
     }
 
+    public void OnClickToBakeButton()
+    {
+        StartCoroutine(SetOderState());
+    }
+
+    IEnumerator SetOderState()
+    {
+        GameManager.hasOrdered = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        SceneManager.LoadScene("01_SceneJeu");
+    }
+
+
+    void UpdatePizzaNameInOrderRecap(string myPizzaName, float myPizzaPrice)
+    {
+        orderRecapText.text = "   " + myPizzaName + " , " + " prix : " + myPizzaPrice + " € ";
+    }
+
+    #region Fade Windows or Popup
     public IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float lerpTime = 0.5f)
     {
         float _timerStartedLerping = Time.time;
@@ -44,4 +72,18 @@ public class UIManager_Commande : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+
+    public void FadeInCustomersInfoWindow()
+    {
+        StartCoroutine(FadeCanvasGroup(customersInfoWindow, customersInfoWindow.alpha, 1));
+        customersInfoWindow.blocksRaycasts = true;
+    }
+
+    public void FadeOutCustomersInfoWindow()
+    {
+        StartCoroutine(FadeCanvasGroup(customersInfoWindow, customersInfoWindow.alpha, 0));
+        customersInfoWindow.blocksRaycasts = false;
+        Debug.Log("Click Exit button");
+    }
+    #endregion
 }

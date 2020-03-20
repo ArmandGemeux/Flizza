@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public float currentGameTimer;
     private float gameTimerAtStart = 0.0f;
     public int palletFlippedAtStart = 0;
+    public static bool hasOrdered = false;
 
     public int loadCount;
     public TextMeshProUGUI winCounterText;
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateLoadCountValue();
 
-        Invoke("InitializeWinCount", 0.5f);
+        InitializeWinCount();
 
         currentGameTimer = gameTimerAtStart;
 
@@ -109,7 +110,7 @@ public class GameManager : MonoBehaviour
         if (winCount == numberOfWinsToGetAPizza)
         {
             UIManager.s_Singleton.getAPizzaButton.interactable = true;
-            winCounterText.text = "Free Pizza!";
+            winCounterText.text = "Pizza Gratuite !";
         }
     }
 
@@ -133,9 +134,10 @@ public class GameManager : MonoBehaviour
 
             UpdateWinCount();
             UIManager.s_Singleton.FadeInEndOfGameResults();
+            EnableGetAPizzaButton();
 
             if (winCount == numberOfWinsToGetAPizza)
-                winCounterText.text = "Pizza offerte obtenue!";
+                winCounterText.text = "Pizza Gratuite !";
 
             MasterAudio.PausePlaylist();
             MasterAudio.PlaySoundAndForget("VictorySound");
@@ -146,6 +148,7 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
+        PlayerPrefs.DeleteKey("HasAlreadyPassedOrder");
         PlayerPrefs.DeleteKey("LoadCount");
         Debug.Log("Quit");
     }
